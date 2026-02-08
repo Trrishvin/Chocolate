@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chocolate Day Quiz 💝</title>
+
+<style>
+body {
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
+    text-align: center;
+    color: #ff2f92;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 25px pink;
+    margin-top: 30px;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+.question {
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+button {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    background: #ff9ecf;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff5fa2;
+}
+
+.hearts {
+    font-size: 28px;
+    animation: float 2s infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+    100% {transform: translateY(0);}
+}
+
+.hidden {
+    display: none;
+}
+
+.win {
+    font-size: 26px;
+    color: #ff1493;
+}
+
+img {
+    width: 80%;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: 0 0 15px pink;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts">💖💖💖 Hello Kitty 🎀 🐱 💖💖💖</div>
+
+<div class="container" id="quizBox">
+
+<h1>Chocolate Day Quiz 🍫💝</h1>
+<p>Answer this babygirl 😘</p>
+
+<div id="question" class="question"></div>
+<div id="options"></div>
+
+</div>
+
+<div class="container hidden" id="resultBox">
+    <div class="win">🎉 YAYAYAA YOU WONN 🎉</div>
+    <p>🏆🍫🍫🍫🏆</p>
+    <p><b>Don’t worry babygirl I love you so much ♾️❤️♥️♥️❤️❤️♾️  
+    aapko still chocolate milega 🍫🥺💖</b></p>
+
+    <!-- 🔽 REPLACE THIS IMAGE WITH HER SWEET PHOTO 🔽 -->
+    <img src="REPLACE_WITH_HER_PHOTO.jpg" alt="My Babygirl 💖">
+
+    <p>🍫🍫🍫 ALL CHOCOLATES FOR YOU 🍫🍫🍫</p>
+</div>
+
+<script>
+const quiz = [
+    {
+        q: "💙 What's trrish's favourite colour?",
+        options: ["Blue", "Red", "Pink", "Black"],
+        answer: "Blue"
+    },
+    {
+        q: "🐶 What is trrish's dog's name?",
+        options: ["Tommy", "Bruno", "Tazz", "Rocky"],
+        answer: "Tazz"
+    },
+    {
+        q: "💖 Does trrish love you?",
+        options: ["Yes", "YES", "Yesss", "Obviously yes"],
+        answer: "Yes"
+    },
+    {
+        q: "😤 What does trrish hate the most?",
+        options: [
+            "Everyone except my bbg Trishna",
+            "Chocolate",
+            "Sleep",
+            "Love"
+        ],
+        answer: "Everyone except my bbg Trishna"
+    },
+    {
+        q: "🥺 Do you love trrish?",
+        options: ["Yes", "No"],
+        answer: "Yes"
+    }
+];
+
+let current = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+
+function loadQuestion() {
+    questionEl.innerText = quiz[current].q;
+    optionsEl.innerHTML = "";
+
+    quiz[current].options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => checkAnswer(option);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function checkAnswer(selected) {
+    if (quiz[current].q === "🥺 Do you love trrish?" && selected === "No") {
+        alert("It's okay babu I still love you ❤️🍫");
+    }
+
+    current++;
+    if (current < quiz.length) {
+        loadQuestion();
+    } else {
+        document.getElementById("quizBox").classList.add("hidden");
+        document.getElementById("resultBox").class
+
