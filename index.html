@@ -11,11 +11,19 @@
   100% {transform: translateY(-100vh); opacity: 0;}
 }
 
+@keyframes shake {
+  0% {transform: translateX(0);}
+  25% {transform: translateX(-6px);}
+  50% {transform: translateX(6px);}
+  75% {transform: translateX(-6px);}
+  100% {transform: translateX(0);}
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background: radial-gradient(circle at top, #ffe1ef, #ffb3d9, #ff8fc7);
-  font-family: 'Poppins', 'Comic Sans MS', cursive;
+  font-family: 'Poppins', cursive;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +39,7 @@ body {
 }
 
 .card {
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.88);
   backdrop-filter: blur(10px);
   border-radius: 28px;
   padding: 26px;
@@ -39,6 +47,16 @@ body {
   max-width: 420px;
   text-align: center;
   box-shadow: 0 0 35px rgba(255,105,180,0.45);
+  transition: box-shadow 0.3s;
+}
+
+.card.wrong {
+  animation: shake 0.4s;
+  box-shadow: 0 0 35px rgba(255,0,80,0.8);
+}
+
+.card.correct {
+  box-shadow: 0 0 35px rgba(0,200,120,0.8);
 }
 
 h2 {
@@ -69,6 +87,12 @@ button:active {
   transform: scale(0.97);
 }
 
+.feedback {
+  margin-top: 10px;
+  font-size: 14px;
+  height: 18px;
+}
+
 .hidden {
   display: none;
 }
@@ -76,10 +100,6 @@ button:active {
 .win h1 {
   font-size: 26px;
   color: #ff1493;
-}
-
-.win p {
-  color: #b0005f;
 }
 
 img {
@@ -93,7 +113,6 @@ img {
 
 <body>
 
-<!-- floating hearts -->
 <script>
 for(let i=0;i<25;i++){
   let h=document.createElement("div");
@@ -109,6 +128,7 @@ for(let i=0;i<25;i++){
   <h2>Chocolate Day Quiz 🍫💖</h2>
   <div class="question" id="q"></div>
   <div id="opts"></div>
+  <div class="feedback" id="fb"></div>
 </div>
 
 <div class="card hidden win" id="win">
@@ -118,47 +138,60 @@ for(let i=0;i<25;i++){
     Don’t worry babygirl I love you so much ♾️❤️♥️♥️❤️❤️♾️  
     <br>aapko still chocolate milega 🍫🥺
   </p>
-
-  <!-- 🔽 replace with her sweet photo filename 🔽 -->
   <img src="trishna.jpg">
-
   <p>🍫🍫🍫 All chocolates for YOU 🍫🍫🍫</p>
 </div>
 
 <script>
 const quiz=[
- {q:"💙 What's trrish's favourite colour?",o:["Blue","Red","Pink","Black"]},
- {q:"🐶 What is trrish's dog's name?",o:["Tazz","Tommy","Bruno","Rocky"]},
- {q:"💖 Does trrish love you?",o:["Yes","YES","Obviously yes","Yesss"]},
- {q:"😤 What does trrish hate the most?",o:["Everyone except my bbg Trishna","Chocolate","Sleep","Noise"]},
- {q:"🥺 Do you love trrish?",o:["Yes","No"]}
+ {q:"💙 What's trrish's favourite colour?",o:["Blue","Red","Pink","Black"],a:"Blue"},
+ {q:"🐶 What is trrish's dog's name?",o:["Tazz","Tommy","Bruno","Rocky"],a:"Tazz"},
+ {q:"💖 Does trrish love you?",o:["Yes","YES","Obviously yes","Yesss"],a:"Yes"},
+ {q:"😤 What does trrish hate the most?",o:["Everyone except my bbg Trishna","Chocolate","Sleep","Noise"],a:"Everyone except my bbg Trishna"},
+ {q:"🥺 Do you love trrish?",o:["Yes","No"],a:"Yes"}
 ];
 
 let i=0;
 const q=document.getElementById("q");
 const opts=document.getElementById("opts");
+const fb=document.getElementById("fb");
+const card=document.getElementById("quiz");
 
 function load(){
   q.innerText=quiz[i].q;
+  fb.innerText="";
   opts.innerHTML="";
   quiz[i].o.forEach(x=>{
     let b=document.createElement("button");
     b.innerText=x;
-    b.onclick=()=>next(x);
+    b.onclick=()=>check(x);
     opts.appendChild(b);
   });
 }
 
-function next(c){
-  if(quiz[i].q.includes("Do you love trrish") && c==="No"){
+function check(choice){
+  card.classList.remove("wrong","correct");
+
+  if(choice !== quiz[i].a){
+    fb.innerText="❌ Oops babygirl… thoda sa wrong 💗";
+    card.classList.add("wrong");
+  } else {
+    fb.innerText="✅ Correcttt 😘💖";
+    card.classList.add("correct");
+  }
+
+  if(quiz[i].q.includes("Do you love trrish") && choice==="No"){
     alert("It's okay babu I still love you ❤️🍫");
   }
-  i++;
-  if(i<quiz.length) load();
-  else{
-    document.getElementById("quiz").classList.add("hidden");
-    document.getElementById("win").classList.remove("hidden");
-  }
+
+  setTimeout(()=>{
+    i++;
+    if(i<quiz.length) load();
+    else{
+      document.getElementById("quiz").classList.add("hidden");
+      document.getElementById("win").classList.remove("hidden");
+    }
+  },900);
 }
 
 load();
