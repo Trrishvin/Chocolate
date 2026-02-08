@@ -1,170 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chocolate Day Quiz 💝</title>
+<title>Chocolate Day 💝</title>
 
 <style>
+@keyframes floatHearts {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(-100vh); opacity: 0;}
+}
+
 body {
-    font-family: 'Comic Sans MS', cursive;
-    background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
-    text-align: center;
-    color: #ff2f92;
-    overflow-x: hidden;
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #ffe1ef, #ffb3d9, #ff8fc7);
+  font-family: 'Poppins', 'Comic Sans MS', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.container {
-    max-width: 500px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 25px;
-    box-shadow: 0 0 25px pink;
-    margin-top: 30px;
+/* floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 18px;
+  animation: floatHearts linear infinite;
 }
 
-h1 {
-    font-size: 26px;
+.card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 26px;
+  width: 92%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 0 35px rgba(255,105,180,0.45);
+}
+
+h2 {
+  margin-top: 0;
+  color: #ff2f92;
 }
 
 .question {
-    font-size: 20px;
-    margin: 20px 0;
+  font-size: 18px;
+  margin: 18px 0;
+  color: #d1006b;
 }
 
 button {
-    display: block;
-    width: 90%;
-    margin: 10px auto;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 20px;
-    border: none;
-    background: #ff9ecf;
-    color: white;
-    cursor: pointer;
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  background: linear-gradient(135deg, #ff6fae, #ff9ecf);
+  color: white;
+  box-shadow: 0 6px 15px rgba(255,105,180,0.4);
+  cursor: pointer;
 }
 
-button:hover {
-    background: #ff5fa2;
-}
-
-.hearts {
-    font-size: 28px;
-    animation: float 2s infinite;
-}
-
-@keyframes float {
-    0% {transform: translateY(0);}
-    50% {transform: translateY(-10px);}
-    100% {transform: translateY(0);}
+button:active {
+  transform: scale(0.97);
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
-.win {
-    font-size: 26px;
-    color: #ff1493;
+.win h1 {
+  font-size: 26px;
+  color: #ff1493;
+}
+
+.win p {
+  color: #b0005f;
 }
 
 img {
-    width: 80%;
-    border-radius: 20px;
-    margin-top: 15px;
-    box-shadow: 0 0 15px pink;
+  width: 85%;
+  margin-top: 15px;
+  border-radius: 22px;
+  box-shadow: 0 0 20px pink;
 }
 </style>
 </head>
 
 <body>
 
-<div class="hearts">💖💖💖 Hello Kitty 🎀 🐱 💖💖💖</div>
+<!-- floating hearts -->
+<script>
+for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(h);
+}
+</script>
 
-<div class="container" id="quizBox">
-
-<h1>Chocolate Day Quiz 🍫💝</h1>
-<p>Answer this babygirl 😘</p>
-
-<div id="question" class="question"></div>
-<div id="options"></div>
-
+<div class="card" id="quiz">
+  <h2>Chocolate Day Quiz 🍫💖</h2>
+  <div class="question" id="q"></div>
+  <div id="opts"></div>
 </div>
 
-<div class="container hidden" id="resultBox">
-    <div class="win">🎉 YAYAYAA YOU WONN 🎉</div>
-    <p>🏆🍫🍫🍫🏆</p>
-    <p><b>Don’t worry babygirl I love you so much ♾️❤️♥️♥️❤️❤️♾️  
-    aapko still chocolate milega 🍫🥺💖</b></p>
+<div class="card hidden win" id="win">
+  <h1>🎉 YAYAYAA YOU WONN 🎉</h1>
+  <p>🏆🍫🍫🍫🏆</p>
+  <p>
+    Don’t worry babygirl I love you so much ♾️❤️♥️♥️❤️❤️♾️  
+    <br>aapko still chocolate milega 🍫🥺
+  </p>
 
-    <!-- 🔽 REPLACE THIS IMAGE WITH HER SWEET PHOTO 🔽 -->
-    <img src="trishna.jpg" alt="My Babygirl 💖">
+  <!-- 🔽 replace with her sweet photo filename 🔽 -->
+  <img src="trishna.jpg">
 
-    <p>🍫🍫🍫 ALL CHOCOLATES FOR YOU 🍫🍫🍫</p>
+  <p>🍫🍫🍫 All chocolates for YOU 🍫🍫🍫</p>
 </div>
 
 <script>
-const quiz = [
-    {
-        q: "💙 What's trrish's favourite colour?",
-        options: ["Blue", "Red", "Pink", "Black"],
-        answer: "Blue"
-    },
-    {
-        q: "🐶 What is trrish's dog's name?",
-        options: ["Tommy", "Bruno", "Tazz", "Rocky"],
-        answer: "Tazz"
-    },
-    {
-        q: "💖 Does trrish love you?",
-        options: ["Yes", "YES", "Yesss", "Obviously yes"],
-        answer: "Yes"
-    },
-    {
-        q: "😤 What does trrish hate the most?",
-        options: [
-            "Everyone except my bbg Trishna",
-            "Chocolate",
-            "Sleep",
-            "Love"
-        ],
-        answer: "Everyone except my bbg Trishna"
-    },
-    {
-        q: "🥺 Do you love trrish?",
-        options: ["Yes", "No"],
-        answer: "Yes"
-    }
+const quiz=[
+ {q:"💙 What's trrish's favourite colour?",o:["Blue","Red","Pink","Black"]},
+ {q:"🐶 What is trrish's dog's name?",o:["Tazz","Tommy","Bruno","Rocky"]},
+ {q:"💖 Does trrish love you?",o:["Yes","YES","Obviously yes","Yesss"]},
+ {q:"😤 What does trrish hate the most?",o:["Everyone except my bbg Trishna","Chocolate","Sleep","Noise"]},
+ {q:"🥺 Do you love trrish?",o:["Yes","No"]}
 ];
 
-let current = 0;
+let i=0;
+const q=document.getElementById("q");
+const opts=document.getElementById("opts");
 
-const questionEl = document.getElementById("question");
-const optionsEl = document.getElementById("options");
-
-function loadQuestion() {
-    questionEl.innerText = quiz[current].q;
-    optionsEl.innerHTML = "";
-
-    quiz[current].options.forEach(option => {
-        const btn = document.createElement("button");
-        btn.innerText = option;
-        btn.onclick = () => checkAnswer(option);
-        optionsEl.appendChild(btn);
-    });
+function load(){
+  q.innerText=quiz[i].q;
+  opts.innerHTML="";
+  quiz[i].o.forEach(x=>{
+    let b=document.createElement("button");
+    b.innerText=x;
+    b.onclick=()=>next(x);
+    opts.appendChild(b);
+  });
 }
 
-function checkAnswer(selected) {
-    if (quiz[current].q === "🥺 Do you love trrish?" && selected === "No") {
-        alert("It's okay babu I still love you ❤️🍫");
-    }
+function next(c){
+  if(quiz[i].q.includes("Do you love trrish") && c==="No"){
+    alert("It's okay babu I still love you ❤️🍫");
+  }
+  i++;
+  if(i<quiz.length) load();
+  else{
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("win").classList.remove("hidden");
+  }
+}
 
-    current++;
-    if (current < quiz.length) {
-        loadQuestion();
-    } else {
-        document.getElementById("quizBox").classList.add("hidden");
-        document.getElementById("resultBox").class
+load();
+</script>
 
+</body>
+</html>
